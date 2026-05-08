@@ -283,6 +283,7 @@ with st.spinner("Updating market data..."):
     try:
         df = update_historical_data()
         st.write("DEBUG max date:", df["Date"].max())
+        st.write("DEBUG dtype:", df["Date"].dtype)
         df = df[df["Date"] <= pd.Timestamp(datetime.today().date())]
         df = df[df["Date"] <= pd.Timestamp.now().normalize() + pd.Timedelta(days=1)]
     except Exception:
