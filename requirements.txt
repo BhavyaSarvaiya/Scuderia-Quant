@@ -1,7 +1,7 @@
 plotly==5.24.1 
 pandas
 numpy
-yfinance
+yfinance==1.1.0
 streamlit
 scikit-learn
 statsmodels
