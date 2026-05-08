@@ -362,6 +362,7 @@ with t1:
     fig    = go.Figure()
     for i, com in enumerate(COMMODITIES):
         cd   = df[df["Commodity"] == com].sort_values("Date").tail(504).dropna(subset=["Close"])
+        cd   = cd[cd["Date"].dt.dayofweek < 5]  # weekdays only
         norm = cd["Close"] / cd["Close"].iloc[0] * 100
         fig.add_trace(go.Scatter(x=cd["Date"], y=norm, name=com,
                                   line=dict(color=colors[i], width=1.5)))
