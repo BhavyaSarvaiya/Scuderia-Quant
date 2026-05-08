@@ -284,6 +284,7 @@ with st.spinner("Updating market data..."):
         df = update_historical_data()
         st.write("DEBUG max date:", df["Date"].max())
         st.write("DEBUG dtype:", df["Date"].dtype)
+        st.write("DEBUG filter result:", (df["Date"] <= pd.Timestamp.now().normalize() + pd.Timedelta(days=1)).sum())
         df = df[df["Date"] <= pd.Timestamp(datetime.today().date())]
         df = df[df["Date"] <= pd.Timestamp.now().normalize() + pd.Timedelta(days=1)]
     except Exception:
