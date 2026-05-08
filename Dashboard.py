@@ -314,6 +314,7 @@ if st.sidebar.button("Refresh Data"):
 ticker = TICKERS[commodity]
 unit   = get_unit(currency, commodity)
 cdf    = df[df["Commodity"] == commodity].sort_values("Date").reset_index(drop=True)
+st.write("DEBUG cdf max date:", cdf["Date"].max())
 
 live_price, open_price = get_live_price(ticker)
 if live_price:
