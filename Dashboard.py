@@ -212,7 +212,8 @@ def update_historical_data():
         updated = updated.sort_values("Date").drop_duplicates(subset=["Date"]).reset_index(drop=True)
         all_groups.append(updated)
 
-    final_df = pd.concat(all_groups, ignore_index=True)
+    today = pd.Timestamp(datetime.today().date())
+    final_df = final_df[final_df["Date"] <= today]
     final_df = final_df.sort_values(["Commodity","Date"]).reset_index(drop=True)
     final_df.to_csv(HIST_PATH, index=False)
     return final_df
