@@ -282,6 +282,7 @@ models = load_models()
 with st.spinner("Updating market data..."):
     try:
         df = update_historical_data()
+        df = df[df["Date"] <= pd.Timestamp(datetime.today().date())]
     except Exception:
         df = pd.read_csv(HIST_PATH)
         df["Date"] = pd.to_datetime(df["Date"], format="mixed", dayfirst=True)
