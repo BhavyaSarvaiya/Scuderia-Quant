@@ -212,8 +212,12 @@ def update_historical_data():
         updated = updated.sort_values("Date").drop_duplicates(subset=["Date"]).reset_index(drop=True)
         all_groups.append(updated)
 
+    final_df = pd.concat(all_groups, ignore_index=True)  # ← ADD THIS LINE
     today = pd.Timestamp(datetime.today().date())
     final_df = final_df[final_df["Date"] <= today]
+    final_df = final_df.sort_values(["Commodity","Date"]).reset_index(drop=True)
+    final_df.to_csv(HIST_PATH, index=False)
+    return final_df
     final_df = final_df.sort_values(["Commodity","Date"]).reset_index(drop=True)
     final_df.to_csv(HIST_PATH, index=False)
     return final_df
@@ -281,8 +285,9 @@ with st.spinner("Updating market data..."):
     except Exception:
         df = pd.read_csv(HIST_PATH)
         df["Date"] = pd.to_datetime(df["Date"], format="mixed", dayfirst=True)
+        df = df[df["Date"] <= pd.Timestamp(datetime.today().date())]  # ← ADD THIS
 
-df["Crude_Inv_Change"]   = df.groupby("Commodity")["Crude_Oil_Inventory"].diff()
+df["Crude_Inv_Change"] = df.groupby("Commodity")["Crude_Oil_Inventory"].diff()
 df["NatGas_Stor_Change"] = df.groupby("Commodity")["NatGas_Storage"].diff()
 
 # ── SIDEBAR ───────────────────────────────────────────────────────────────────
