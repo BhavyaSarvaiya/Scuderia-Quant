@@ -361,7 +361,7 @@ with t1:
     colors = ["#e6a817","#999","#2196f3","#00bcd4","#4caf50","#ff7043"]
     fig    = go.Figure()
     for i, com in enumerate(COMMODITIES):
-        cd   = df[df["Commodity"] == com].sort_values("Date").tail(504)
+        cd   = df[df["Commodity"] == com].sort_values("Date").tail(504).dropna(subset=["Close"])
         norm = cd["Close"] / cd["Close"].iloc[0] * 100
         fig.add_trace(go.Scatter(x=cd["Date"], y=norm, name=com,
                                   line=dict(color=colors[i], width=1.5)))
