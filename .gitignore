@@ -1,0 +1,9 @@
+__pycache__/
+*.pyke
+.env
+data/raw/
+*.pkl
+models/"venv/" 
+"venv/" 
+"venv/" 
+"venv/" 
