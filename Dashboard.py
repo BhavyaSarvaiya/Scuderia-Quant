@@ -282,6 +282,7 @@ models = load_models()
 with st.spinner("Updating market data..."):
     try:
         df = update_historical_data()
+        st.write("DEBUG max date:", df["Date"].max())
         df = df[df["Date"] <= pd.Timestamp(datetime.today().date())]
     except Exception:
         df = pd.read_csv(HIST_PATH)
